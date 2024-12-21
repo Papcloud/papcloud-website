@@ -1,16 +1,21 @@
 import { useState, ChangeEvent, FormEvent } from "react";
+import { Container, Form, Button } from "react-bootstrap";
 
 function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [responseMessage, setResponseMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
-
+  /**
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert("Message sent!");
+    console.log(form);
+  };
+     */
   // Handle form submission
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent default form behavior
@@ -42,28 +47,47 @@ function Contact() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        name="name"
-        value={form.name}
-        onChange={handleChange}
-      />
-      <input
-        type="email"
-        name="email"
-        value={form.email}
-        onChange={handleChange}
-      />
-      <textarea
-        name="message"
-        value={form.message}
-        onChange={handleChange}
-      ></textarea>
-      <button type="submit">Send</button>
-      {responseMessage && <p>{responseMessage}</p>}
-      {errorMessage && <p>{errorMessage}</p>}
-    </form>
+    <Container className="my-5">
+      <h2>Contact Us</h2>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group controlId="formName">
+          <Form.Label>Name</Form.Label>
+          <Form.Control
+            type="text"
+            name="name"
+            value={form.name}
+            onChange={handleChange}
+            required
+          />
+        </Form.Group>
+        <Form.Group controlId="formEmail">
+          <Form.Label>Email</Form.Label>
+          <Form.Control
+            type="email"
+            name="email"
+            value={form.email}
+            onChange={handleChange}
+            required
+          />
+        </Form.Group>
+        <Form.Group controlId="formMessage">
+          <Form.Label>Message</Form.Label>
+          <Form.Control
+            as="textarea"
+            name="message"
+            value={form.message}
+            onChange={handleChange}
+            rows={3}
+            required
+          />
+        </Form.Group>
+        <Button variant="primary" type="submit">
+          Send
+        </Button>
+        {responseMessage && <p>{responseMessage}</p>}
+        {errorMessage && <p>{errorMessage}</p>}
+      </Form>
+    </Container>
   );
 }
 
