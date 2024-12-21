@@ -8,11 +8,11 @@ pipeline {
     }
     stages {
 
-        stage('Building image') {
+        //create a stage to build the project react project
+        stage('Building project') {
             steps {
-                script {
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
-                }
+                sh 'npm install'
+                sh 'npm run build'
             }
         }
     }
