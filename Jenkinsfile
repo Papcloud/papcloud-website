@@ -6,6 +6,9 @@ pipeline {
         registryCredential = 'dockerhub'
         dockerImage = ''
     }
+    tools {
+        nodejs 'nodejs'
+    }
     stages {
 
         //create a stage to build the project react project
