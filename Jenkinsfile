@@ -7,11 +7,6 @@ pipeline {
         dockerImage = ''
     }
     stages {
-        stage('Cloning Git') {
-            steps {
-                git 'https://github.com/Papcloud/papcloud-website.git'
-            }
-        }
 
         stage('Building image') {
             steps {
